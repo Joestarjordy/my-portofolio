@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jordy's Creative Bento Portfolio. Software engineer specializing in building high-performance, modern web applications with elegant designs.">
+  <meta name="keywords" content="Jordy, Bento Portfolio, Developer, Software Engineer, Creative Web Developer, Front-end, Full-stack">
+  <meta name="author" content="Jordy">
+  <title>Jordy | Creative Bento Portfolio</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/vibe_coder.jpg">
+  
+  <!-- Preconnect Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Stylesheets -->
+  <script>
+    (function() {
+      try {
+        // Clear legacy bug where 'light' was unconditionally saved to localStorage
+        if (localStorage.getItem('theme_version') !== '2') {
+          localStorage.removeItem('theme');
+          localStorage.removeItem('user_theme');
+          localStorage.setItem('theme_version', '2');
+        }
+
+        const storedTheme = localStorage.getItem('user_theme');
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Follow saved manual preference if user explicitly toggled, otherwise automatically follow system preference
+        const isDark = storedTheme ? (storedTheme === 'dark') : systemPrefersDark;
+        
+        if (isDark) {
+          document.documentElement.classList.add('dark-theme');
+        } else {
+          document.documentElement.classList.remove('dark-theme');
+        }
+      } catch (e) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark-theme');
+        }
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- INTRO SPLASH OVERLAY -->
+  <div id="intro-overlay" class="intro-overlay">
+    <!-- Intro Particle Canvas -->
+    <canvas id="intro-canvas" class="intro-canvas"></canvas>
+
+    <!-- Glowing background shape blobs -->
+    <div class="intro-blob blob-1">
+      <div class="blob-inner"></div>
+    </div>
+    <div class="intro-blob blob-2">
+      <div class="blob-inner"></div>
+    </div>
+    
+    <div class="intro-content">
+      <h1 class="intro-name">JORDY CAHYA BUANA</h1>
+      <p class="intro-role" data-translate="intro-role">Creative Front-End Developer</p>
+      <div class="intro-enter-prompt" data-translate="intro-prompt">CLICK ANYWHERE TO ENTER</div>
+    </div>
+  </div>
+
+
+  <!-- HEADER / NAVIGATION -->
+  <header>
+    <div class="container navbar">
+      <a href="#home" class="logo">
+        <span class="gradient-text">JORDY</span>
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home" class="active" data-translate="nav-home">Home</a></li>
+          <li><a href="#about" data-translate="nav-about">About</a></li>
+          <li><a href="#projects" data-translate="nav-projects">Projects</a></li>
+          <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switch-wrapper">
+          <button id="lang-btn" class="btn-lang" aria-label="Switch Language">ID</button>
+        </div>
+        
+        <!-- Theme Switcher -->
+        <button id="theme-toggle" class="btn-theme" aria-label="Toggle Theme">
+          <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+
+
+        <a href="#contact" class="btn-contact" data-translate="btn-talk">Let's Talk</a>
+        
+        <!-- Hamburger Menu for Mobile -->
+        <button class="menu-btn" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO & ABOUT BENTO BOARD -->
+  <section id="home" class="hero page-section">
+    <div class="container">
+      <div class="bento-grid">
+        
+        <!-- CELL 1: Main Hero Pitch (col-8) -->
+        <div class="bento-card col-8 hero-card-main bento-fade-in">
+          <div class="hero-tag" data-translate="hero-status">STATUS: ONLINE</div>
+          <h1>Hi, I'm Jordy Cahya<br>
+            <span class="hero-title-role gradient-text">
+              <span class="typed-text"></span><span class="cursor">&nbsp;</span>
+            </span>
+          </h1>
+          <p class="hero-desc" data-translate="hero-desc">I design and build premium web applications, translating complex ideas into elegant, responsive, and high-performance digital experiences.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">
+              <span data-translate="btn-explore">Explore Projects</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="assets/CV%20Modern%20English.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-resume" id="hero-resume-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span data-translate="btn-resume">My Resume</span>
+            </a>
+            <a href="#about" class="btn-secondary" data-translate="btn-about-me">Get to Know Me</a>
+            <a href="#contact" class="btn-secondary" data-translate="btn-get-in-touch">Get In Touch</a>
+          </div>
+        </div>
+        
+        <!-- CELL 2: Vibe Coder Card (col-4) -->
+        <div class="bento-card col-4 hero-vibe-card bento-fade-in">
+          <div class="vibe-header-overlay">
+            <span class="vibe-title" data-translate="vibe-title">Cool Vibe Coder</span>
+            <span class="vibe-status-pulse"></span>
+          </div>
+          <img src="assets/vibe_coder_light.jpg" alt="Vibe Coder AI Bot Light" class="vibe-full-img vibe-img-light">
+          <img src="assets/vibe_coder.jpg" alt="Vibe Coder AI Bot Dark" class="vibe-full-img vibe-img-dark">
+          <div class="vibe-glow-ring"></div>
+          <div class="vibe-scanlines"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="about page-section">
+    <div class="container">
+      <h2 class="section-title" data-translate="about-title">About Me</h2>
+      <div class="bento-grid">
+        
+        <!-- ROW 1: PERSONAL PHOTO & NARRATIVE BIO -->
+
+        <!-- CARD 1: Personal Profile Photo Card (col-4) -->
+        <div class="bento-card col-4 about-photo-card">
+          <div class="photo-container">
+            <img src="assets/jordy_photo.jpg" alt="Jordy Cahya Buana" class="photo-img">
+            <div class="photo-gradient-vignette"></div>
+            
+            <div class="photo-badge-top">
+              <span class="photo-status-dot"></span>
+              <span data-translate="about-profile-location">Malang, Indonesia</span>
+            </div>
+            
+            <div class="photo-details-bottom">
+              <h3 class="photo-name" data-translate="about-profile-name">Jordy Cahya Buana</h3>
+              <p class="photo-role" data-translate="about-profile-role">Creative Web Developer</p>
+              <div class="photo-chips">
+                <span class="photo-chip">S.Kom</span>
+                <span class="photo-chip">Bangkit '23</span>
+                <span class="photo-chip">UB Alum</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: Bio & Engineering Philosophy (col-8) -->
+        <div class="bento-card col-8 about-bio">
+          <div class="about-bio-header">
+            <div class="about-badge">
+              <span class="badge-accent-dot"></span>
+              <span data-translate="about-bio-badge">Philosophy & Craft</span>
+            </div>
+            <h3 data-translate="about-bio-title">Fusing Design with Technical Precision</h3>
+          </div>
+          <p class="about-bio-lead" data-translate="about-bio-desc1">
+            I am a motivated Informatics Engineering graduate from Brawijaya University, specializing in Front-End Development. As a dedicated vibe coder, I thrive on bridging the gap between design and functionality—combining intuitive AI-assisted workflows and modern tech to build scalable, responsive web applications.
+          </p>
+          <p class="about-bio-secondary" data-translate="about-bio-desc2">
+            With a strong focus on responsive architecture, fluid micro-interactions, and computational efficiency, I transform complex ideas into high-impact digital products across the modern JavaScript and mobile ecosystems.
+          </p>
+          
+          <div class="about-stats-strip">
+            <div class="about-stat-pill">
+              <span class="stat-pill-num">2025</span>
+              <span class="stat-pill-label" data-translate="stat-grad-year">Informatics Engineering</span>
+            </div>
+            <div class="about-stat-pill">
+              <span class="stat-pill-num">Bangkit '23</span>
+              <span class="stat-pill-label" data-translate="stat-bangkit">Bangkit '23 Alum</span>
+            </div>
+            <div class="about-stat-pill">
+              <span class="stat-pill-num">Published</span>
+              <span class="stat-pill-label" data-translate="stat-thesis">Published Researcher</span>
+            </div>
+          </div>
+
+          <div class="about-actions">
+            <a href="assets/CV%20Modern%20English.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-resume" id="about-resume-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span data-translate="btn-resume">My Resume</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ROW 2: COLLEGE SHOWCASE & SCIENTIFIC RESEARCH -->
+
+        <!-- CARD 3: Universitas Brawijaya (FILKOM) Showcase (col-7) -->
+        <div class="bento-card col-7 college-bento-card">
+          <div class="college-header-meta">
+            <div class="college-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+              <span data-translate="college-badge-label">Alma Mater</span>
+            </div>
+            <span class="college-period">2020 — 2025</span>
+          </div>
+
+          <div class="college-media-banner">
+            <img src="assets/brawijaya_campus.jpg" alt="Universitas Brawijaya - FILKOM Campus" class="college-img">
+            <div class="college-media-overlay">
+              <span class="college-img-caption">Fakultas Ilmu Komputer (FILKOM UB)</span>
+            </div>
+          </div>
+
+          <div class="college-info-body">
+            <h3 class="college-title" data-translate="college-title">Universitas Brawijaya</h3>
+            <h4 class="college-subtitle" data-translate="college-faculty">Faculty of Computer Science (FILKOM)</h4>
+            <p class="college-degree-line">
+              <span class="college-degree-badge" data-translate="college-degree">Bachelor of Informatics Engineering (S.Kom)</span>
+            </p>
+            <p class="college-desc" data-translate="college-desc">
+              Graduated in Informatics Engineering from Universitas Brawijaya in Malang. Built a comprehensive foundation in Software Architecture, Web & Mobile Systems, and Algorithmic Problem Solving while spearheading scientific research on declarative UI performance.
+            </p>
+            <div class="college-tags">
+              <span class="college-tag">🏛️ FILKOM UB</span>
+              <span class="college-tag">📍 Malang, East Java</span>
+              <span class="college-tag">💻 Computer Science</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: Academic Thesis Publication (col-5) -->
+        <div class="bento-card col-5 thesis-bento-card">
+          <div class="thesis-bg-backdrop">
+            <img src="assets/thesis_cover.jpg" alt="Universitas Brawijaya Thesis Front Cover" class="thesis-bg-img">
+            <div class="thesis-bg-overlay"></div>
+          </div>
+
+          <div class="thesis-header-meta">
+            <div class="thesis-badge">
+              <span class="thesis-dot"></span>
+              <span data-translate="thesis-badge-label">Published Thesis</span>
+            </div>
+            <span class="thesis-year">PTIIK 2025</span>
+          </div>
+          
+          <div class="thesis-card-bottom">
+            <div class="thesis-content">
+              <a href="https://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/16234/7161" target="_blank" rel="noopener noreferrer" class="thesis-main-link">
+                <span data-translate="thesis-main-title">"Comparative Analysis of RecyclerView and LazyColumn Performance in Displaying Data Collection in Android Applications"</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+              <p class="thesis-journal" data-translate="thesis-journal-name">Jurnal PTIIK, Universitas Brawijaya</p>
+              <p class="thesis-summary" data-translate="thesis-summary">
+                Empirical scientific research measuring frame render latency, memory overhead, and scroll velocity comparing Android Jetpack Compose with traditional RecyclerView.
+              </p>
+            </div>
+
+            <div class="thesis-footer">
+              <a href="https://j-ptiik.ub.ac.id/index.php/j-ptiik/article/view/16234/7161" target="_blank" rel="noopener noreferrer" class="btn-read-thesis">
+                <span data-translate="btn-read-paper">Read Published Paper</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 3: EXPERIENCE & TECH STACK -->
+
+        <!-- CARD 5: Experience Timeline (col-6) -->
+        <div class="bento-card col-6 experience-card">
+          <h3 data-translate="experience-title">Experience</h3>
+          <div class="experience-timeline">
+            
+            <div class="experience-item">
+              <div class="exp-header">
+                <span class="exp-role" data-translate="exp-1-role">Internship</span>
+                <span class="exp-date" data-translate="exp-1-date">Feb 2023 - Jul 2023</span>
+              </div>
+              <div class="exp-company" data-translate="exp-1-company">Bangkit Academy (by Google, GoTo, Traveloka)</div>
+              <p class="exp-desc" data-translate="exp-1-desc">Developed native Android applications using Kotlin, Android SDK, and modern system architectures under mentorship from top tech companies.</p>
+            </div>
+
+            <div class="experience-item">
+              <div class="exp-header">
+                <span class="exp-role" data-translate="exp-2-role">Student</span>
+                <span class="exp-date" data-translate="exp-2-date">Jan 2020 - Dec 2025</span>
+              </div>
+              <div class="exp-company" data-translate="exp-2-company">Universitas Brawijaya</div>
+              <p class="exp-desc" data-translate="exp-2-desc">Completed Informatics Engineering degree, focusing on software design, algorithmic problem solving, and modern Front-End Web development.</p>
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- CARD 6: Categorized Tech Stack Tags (col-6) -->
+        <div class="bento-card col-6 tech-stack-card">
+          <h3 data-translate="tech-stack-title">Tech Stack Expertise</h3>
+          <div class="tech-cloud">
+            <span class="tech-tag">HTML5 / CSS3</span>
+            <span class="tech-tag">Modern ES6+ JS</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">React.js</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">Kotlin</span>
+            <span class="tech-tag">Android SDK</span>
+            <span class="tech-tag">Jetpack Compose</span>
+            <span class="tech-tag">PostgreSQL / MySQL</span>
+            <span class="tech-tag">MongoDB / Redis</span>
+            <span class="tech-tag">Docker / Git</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="projects page-section">
+    <div class="container">
+      <h2 class="section-title" data-translate="projects-board-title">Projects Board</h2>
+      
+      <!-- Filter and Search controls -->
+      <div class="projects-controls-header">
+        <div class="projects-filters-bar">
+          <div class="projects-filters">
+            <button class="filter-btn active" data-filter="all" data-translate="filter-all">All Projects</button>
+            <button class="filter-btn" data-filter="web" data-translate="filter-web">Web Apps & Games</button>
+            <button class="filter-btn" data-filter="mobile" data-translate="filter-mobile">Android Apps</button>
+            <button class="filter-btn" data-filter="system" data-translate="filter-system">Benchmarks & Systems</button>
+          </div>
+
+          <!-- Search Icon Toggle Button -->
+          <button id="search-toggle-btn" class="search-toggle-btn" aria-label="Search projects" aria-expanded="false" type="button" title="Search projects">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Expandable Search Bar Dropdown -->
+        <div id="projects-search-dropdown" class="projects-search-dropdown" style="display: none;">
+          <div class="projects-search-inner">
+            <svg class="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="project-search-input" 
+              class="project-search-input" 
+              placeholder="Search projects, tech, or tags..." 
+              data-translate-placeholder="search-projects-placeholder"
+              aria-label="Search projects"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button id="project-search-close" class="search-close-btn" aria-label="Close search" type="button" title="Close search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projects Grid (Default See All View) -->
+      <div class="bento-grid projects-grid">
+        
+        <!-- Project 1 (Web - Legend of Knight) -->
+        <div class="bento-card col-4 project-card" data-category="web">
+          <div class="project-meta">
+            <span class="project-cat" data-translate="proj-1-cat">Web Game</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+          </div>
+          <div class="project-glow-gradient" style="background: linear-gradient(135deg, #0f766e 0%, #6d28d9 100%);"></div>
+          <div class="project-body">
+            <h3>The Legend of Knight</h3>
+            <p data-translate="proj-1-desc">A pixel-art game website featuring adventure gameplay as the brave knight to save the kidnapped princess and bring joy to the kingdom.</p>
+            <div class="project-tags">
+              <span class="project-tag">HTML5</span>
+              <span class="project-tag">CSS3</span>
+              <span class="project-tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Joestarjordy/The-Legend-of-Knight" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+            <a href="https://joestarjordy.github.io/The-Legend-of-Knight/" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 2 (Mobile - Android Fordaku) -->
+        <div class="bento-card col-4 project-card" data-category="mobile">
+          <div class="project-meta">
+            <span class="project-cat" data-translate="proj-2-cat">Android App</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <div class="project-glow-gradient" style="background: linear-gradient(135deg, #00f5d4 0%, #4f46e5 100%);"></div>
+          <div class="project-body">
+            <h3>Android Fordaku</h3>
+            <p data-translate="proj-2-desc">A native Android community and forum platform built to facilitate communication and interactive thread discussions.</p>
+            <div class="project-tags">
+              <span class="project-tag">Kotlin</span>
+              <span class="project-tag">Android SDK</span>
+              <span class="project-tag">Retrofit</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Joestarjordy/Android_Fordaku" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 3 (Mobile - Complex LazyColumn) -->
+        <div class="bento-card col-4 project-card" data-category="mobile">
+          <div class="project-meta">
+            <span class="project-cat" data-translate="proj-3-cat">Jetpack Compose</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+          </div>
+          <div class="project-glow-gradient" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+          <div class="project-body">
+            <h3>Complex LazyColumn</h3>
+            <p data-translate="proj-3-desc">Performance benchmark subject comparing Declarative list loading with traditional XML layout managers using Android Jetpack Compose.</p>
+            <div class="project-tags">
+              <span class="project-tag">Kotlin</span>
+              <span class="project-tag">Jetpack Compose</span>
+              <span class="project-tag">Benchmark</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Joestarjordy/Complex-LazyColumn" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 4 (Mobile - Complex RecyclerView) -->
+        <div class="bento-card col-4 project-card" data-category="mobile">
+          <div class="project-meta">
+            <span class="project-cat" data-translate="proj-4-cat">Android XML</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+          </div>
+          <div class="project-glow-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+          <div class="project-body">
+            <h3>Complex RecyclerView</h3>
+            <p data-translate="proj-4-desc">Android XML view rendering performance validation subject designed for scroll loading benchmarking under academic research.</p>
+            <div class="project-tags">
+              <span class="project-tag">Kotlin</span>
+              <span class="project-tag">Android XML</span>
+              <span class="project-tag">RecyclerView</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Joestarjordy/Complex-RecyclerView" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 5 (System - Macrobenchmark) -->
+        <div class="bento-card col-4 project-card" data-category="system">
+          <div class="project-meta">
+            <span class="project-cat" data-translate="proj-5-cat">Benchmarks</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <div class="project-glow-gradient" style="background: linear-gradient(135deg, #8b5cf6 0%, #00f5d4 100%);"></div>
+          <div class="project-body">
+            <h3>Macrobenchmark Startup</h3>
+            <p data-translate="proj-5-desc">An automated performance measurement suite profiling app startup, render frames, and scrolling velocities using Android Jetpack Macrobenchmark.</p>
+            <div class="project-tags">
+              <span class="project-tag">Kotlin</span>
+              <span class="project-tag">Macrobenchmark</span>
+              <span class="project-tag">Performance</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Joestarjordy/Macrobenchmark" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+        
+        <!-- Project 6 (Web - Projek-RPL) -->
+        <div class="bento-card col-4 project-card" data-category="web">
+          <div class="project-meta">
+            <span class="project-cat" data-translate="proj-6-cat">Software Eng</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <div class="project-glow-gradient" style="background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);"></div>
+          <div class="project-body">
+            <h3>Projek RPL</h3>
+            <p data-translate="proj-6-desc">Collaborative software engineering class application built to validate software design cycles, system patterns, and relational databases.</p>
+            <div class="project-tags">
+              <span class="project-tag">Hack</span>
+              <span class="project-tag">PHP</span>
+              <span class="project-tag">MySQL</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Joestarjordy/Projek-RPL" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- No Results Empty State -->
+        <div id="projects-no-results" class="projects-no-results" style="display: none;">
+          <div class="no-results-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </div>
+          <h4 data-translate="no-projects-title">No projects found</h4>
+          <p data-translate="no-projects-desc">Try searching with a different keyword or reset filters.</p>
+          <button id="reset-project-filters" class="btn-reset-filters" type="button" data-translate="btn-reset-filters">Reset Filters</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT BOARD -->
+  <section id="contact" class="contact page-section">
+    <div class="container">
+      <h2 class="section-title" data-translate="contact-title">Get In Touch</h2>
+      
+      <div class="bento-grid">
+        
+        <!-- CELL 1: Channels Info & Socials (col-5) -->
+        <div class="bento-card col-5 contact-info-card">
+          <div>
+            <h3 class="contact-subtitle" data-translate="contact-subtitle">Let's create something together</h3>
+            <p class="contact-desc" data-translate="contact-desc">Feel free to reach out through the terminal mailer or via my social channels. I'm always open to discussing new engineering projects, mobile systems, or collaboration ideas.</p>
+            
+            <div class="contact-channels">
+              <div class="channel-item">
+                <div class="channel-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="channel-text">
+                  <span>Email</span>
+                  <a href="mailto:buana779@gmail.com">buana779@gmail.com</a>
+                </div>
+              </div>
+              
+              <div class="channel-item">
+                <div class="channel-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="channel-text">
+                  <span data-translate="contact-label-location">Location</span>
+                  <p>Malang, Indonesia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="contact-subtitle" data-translate="social-title">You can find me on</h3>
+          <div class="social-bar">
+            <a href="https://github.com/Joestarjordy" class="social-item" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/jordycahya/" class="social-item" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- CELL 2: Terminal Contact Form (col-7) -->
+        <div class="bento-card col-7 contact-form-card">
+          <div class="form-header-terminal">
+            <span class="terminal-dot td-red"></span>
+            <span class="terminal-dot td-yellow"></span>
+            <span class="terminal-dot td-green"></span>
+            <span class="terminal-title">jordy@malang:~$ mailer.sh</span>
+          </div>
+          
+          <form id="contact-form" novalidate>
+            <div class="input-row">
+              <div class="form-group margin-none">
+                <label for="name"># NAME</label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="Your Name" data-translate-placeholder="placeholder-name" required>
+              </div>
+              <div class="form-group margin-none">
+                <label for="email"># EMAIL</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" data-translate-placeholder="placeholder-email" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject"># SUBJECT</label>
+              <input type="text" id="subject" name="subject" class="form-input" placeholder="Project Inquiry" data-translate-placeholder="placeholder-subject" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="message"># MESSAGE</label>
+              <textarea id="message" name="message" class="form-input" placeholder="Write your message here..." data-translate-placeholder="placeholder-message" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary form-submit-btn">
+              <span class="btn-text" data-translate="btn-submit">Execute Transmission</span>
+              <span class="loader"></span>
+            </button>
+            
+            <div id="form-status" class="form-status"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p class="footer-text" data-translate="footer-copy">&copy; 2026 Jordy Cahya Buana. All Rights Reserved.</p> 
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
