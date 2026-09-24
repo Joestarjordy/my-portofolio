@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Jordy's personal portfolio: a single-page, **zero-build** site. No `package.json`, no npm, no bundler, no test suite, and not a git repository.
+Jordy's personal portfolio: a single-page, **zero-build** site. Hosted on GitHub at [Joestarjordy/my-portofolio](https://github.com/Joestarjordy/my-portofolio).
 
 Everything lives in four files at the repo root:
 
