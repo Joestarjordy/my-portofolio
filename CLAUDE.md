@@ -82,7 +82,7 @@ Adding user-visible copy means adding the key to **both** `en` and `id`, plus th
 
 Layout is a 12-column CSS grid (`.bento-grid`) with `.col-3` … `.col-12` span utilities on `.bento-card`. Card entrance animation is gated on `body.intro-dismissed`: `.bento-fade-in` starts transparent and only reveals once the intro overlay is clicked away. New animated cards need both `bento-card` and `bento-fade-in`.
 
-For smooth 60fps/120fps scrolling performance, `.bento-card` and `.project-card` use `contain: layout style;` and crisp high-contrast background tokens (`--card-bg`) without generic `backdrop-filter: blur()`.
+For smooth 60fps/120fps scrolling performance, `.bento-card` and `.project-card` use `contain: layout style;` and crisp high-contrast background tokens (`--card-bg`) without generic `backdrop-filter: blur()`. Bento boxes avoid vertical transform hover lifts (`translateY`), keeping cards physically anchored to eliminate hover jiggling and unnecessary layer recomposition while maintaining sleek border-color and neon glow highlights.
 
 In the About section, the college showcase (`.college-bento-card`, `col-7`) pairs with the academic thesis publication card (`.thesis-bento-card`, `col-5`), which features an authentic Universitas Brawijaya skripsi cover front page backdrop (`assets/thesis_cover.jpg`) under a theme-adaptive gradient scrim (`.thesis-bg-overlay`).
 
