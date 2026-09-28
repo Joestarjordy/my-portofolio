@@ -1148,25 +1148,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, {
       root: null,
-      rootMargin: '-30px 0px -40px 0px',
-      threshold: 0.08
+      rootMargin: '10px 0px -30px 0px',
+      threshold: 0.05
     });
 
     // 2. Exit Observer: resets cards only when they scroll substantially outside viewport
-    // (160px buffer prevents jitter/flicker while reading nearby)
+    // (50px buffer prevents edge jitter while reading nearby, but primes re-entry animation)
     const cardExitObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) {
-          // Never un-reveal Home cards when user is at the top boundary
-          if (entry.target.closest('#home') && window.scrollY < 120) {
-            return;
-          }
           entry.target.classList.remove('bento-revealed');
         }
       });
     }, {
       root: null,
-      rootMargin: '160px 0px 160px 0px',
+      rootMargin: '50px 0px 50px 0px',
       threshold: 0
     });
 

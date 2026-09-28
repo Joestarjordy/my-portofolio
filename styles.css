@@ -470,9 +470,7 @@ html {
 }
 
 /* Slide pop-up entrance: reveal state when entering or scrolling into view */
-.intro-dismissed .bento-card.bento-revealed,
-.intro-dismissed .bento-card.bento-fade-in,
-.intro-dismissed .bento-fade-in {
+.intro-dismissed .bento-card.bento-revealed {
   opacity: 1;
   transform: translateY(0) scale(1);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
