@@ -715,45 +715,39 @@ header {
 }
 
 .btn-secondary {
-  border: 1.5px solid var(--card-border);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1.5px solid rgba(0, 245, 212, 0.4);
+  background: rgba(0, 245, 212, 0.05);
   color: var(--text-main);
   padding: 0.9rem 2.2rem;
   border-radius: 50px;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
 }
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--text-muted);
-  transform: translateY(-3px);
-}
 
-/* Distinctive Resume CTA Button */
-.btn-resume {
-  border-color: rgba(0, 245, 212, 0.4);
-  background: rgba(0, 245, 212, 0.05);
-  color: var(--text-main);
-}
-.dark-theme .btn-resume {
+.dark-theme .btn-secondary {
   border-color: rgba(102, 192, 244, 0.4);
   background: rgba(102, 192, 244, 0.06);
 }
-.btn-resume:hover {
+
+.btn-secondary:hover {
   border-color: var(--accent-cyan);
   background: rgba(0, 245, 212, 0.12);
   box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
   transform: translateY(-3px);
 }
-.dark-theme .btn-resume:hover {
+
+.dark-theme .btn-secondary:hover {
   border-color: var(--accent-cyan);
   background: rgba(102, 192, 244, 0.15);
   box-shadow: 0 0 20px rgba(102, 192, 244, 0.3);
   transform: translateY(-3px);
 }
+
+/* Distinctive Resume CTA Button (adds icon styling) */
 .btn-resume svg {
   stroke: var(--accent-cyan);
   transition: transform 0.3s ease;
