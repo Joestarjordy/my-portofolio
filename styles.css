@@ -423,6 +423,7 @@ html {
   margin-bottom: 2rem;
 }
 
+/* Bento Card Base & Slide Pop-Up Entrance Animation */
 .bento-card {
   background: var(--card-bg);
   border: 1.5px solid var(--card-border);
@@ -431,11 +432,21 @@ html {
   position: relative;
   overflow: hidden;
   contain: layout style;
-  transition: border-color var(--transition-speed) ease, 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(38px) scale(0.97);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--transition-speed) ease, 
               background-color var(--transition-speed) ease, 
               box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition-delay: var(--bento-delay, 0.04s);
 }
+
+.bento-card:not(.bento-revealed) {
+  will-change: transform, opacity;
+}
+
 .bento-card::before {
   content: '';
   position: absolute;
@@ -449,34 +460,44 @@ html {
   z-index: 0;
   pointer-events: none;
 }
+
 .bento-card:hover {
   border-color: var(--card-border-hover);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), var(--shadow-neon), var(--shadow-neon-purple);
 }
+
 .bento-card:hover::before {
   opacity: 1;
 }
 
-/* Bento card entrance fade and slide transition */
-.bento-fade-in {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
+/* Slide pop-up entrance: reveal state when entering or scrolling into view */
+.intro-dismissed .bento-card.bento-revealed,
+.intro-dismissed .bento-card.bento-fade-in,
 .intro-dismissed .bento-fade-in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-.intro-dismissed .bento-card.bento-fade-in {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color var(--transition-speed) ease, 
-              background-color var(--transition-speed) ease, 
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Stagger delays across children in 2-column bento grids */
+.bento-grid > .bento-card:nth-child(odd) {
+  --bento-delay: 0.04s;
+}
+
+.bento-grid > .bento-card:nth-child(even) {
+  --bento-delay: 0.14s;
+}
+
+/* Stagger delays across children in 3-column projects grid */
+.projects-grid > .bento-card:nth-child(3n+1) {
+  --bento-delay: 0.04s;
+}
+
+.projects-grid > .bento-card:nth-child(3n+2) {
+  --bento-delay: 0.12s;
+}
+
+.projects-grid > .bento-card:nth-child(3n+3) {
+  --bento-delay: 0.20s;
 }
 
 
@@ -1830,9 +1851,12 @@ header {
   flex-direction: column;
   height: 100%;
   contain: layout style;
-  transition: opacity 0.3s ease, 
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               border-color var(--transition-speed) ease, 
+              background-color var(--transition-speed) ease,
               box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--bento-delay, 0.04s);
 }
 
 .project-card:hover {
@@ -2491,6 +2515,14 @@ footer {
   .project-card {
     padding: 1.4rem;
   }
+
+  .bento-grid > .bento-card:nth-child(odd),
+  .bento-grid > .bento-card:nth-child(even),
+  .projects-grid > .bento-card:nth-child(3n+1),
+  .projects-grid > .bento-card:nth-child(3n+2),
+  .projects-grid > .bento-card:nth-child(3n+3) {
+    --bento-delay: 0.04s;
+  }
   .project-img-wrapper {
     height: 180px;
   }
@@ -2709,5 +2741,11 @@ footer {
   .cursor {
     animation: none !important;
     opacity: 1 !important;
+  }
+
+  .bento-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

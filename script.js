@@ -610,6 +610,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     targetEl.scrollIntoView({ behavior: 'smooth' });
 
+    // Re-arm slide pop-up animation on target section cards so they animate as user enters
+    const sectionCards = targetEl.querySelectorAll('.bento-card');
+    if (sectionCards.length) {
+      sectionCards.forEach(card => card.classList.remove('bento-revealed'));
+      setTimeout(() => {
+        sectionCards.forEach(card => card.classList.add('bento-revealed'));
+      }, 250);
+    }
+
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       isProgrammaticScroll = false;
@@ -807,13 +816,13 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.display = 'flex';
         requestAnimationFrame(() => {
           card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
+          card.style.transform = 'translateY(0) scale(1)';
         });
         visibleCount++;
       } else {
         card.classList.add('hidden-by-filter');
         card.style.opacity = '0';
-        card.style.transform = 'scale(0.96)';
+        card.style.transform = 'translateY(20px) scale(0.96)';
         setTimeout(() => {
           if (card.classList.contains('hidden-by-filter')) {
             card.style.display = 'none';
@@ -1126,6 +1135,51 @@ document.addEventListener('DOMContentLoaded', () => {
     if (initialSection && initialSection !== 'home' && typeof scrollToSectionFn === 'function') {
       scrollToSectionFn(initialSection, false);
     }
+  }
+
+  // ==========================================
+  // 11. BENTO BOX SLIDE POP-UP ENTRANCE ANIMATION (SCROLL REVEAL)
+  // ==========================================
+  const allBentoCards = document.querySelectorAll('.bento-card');
+
+  if (allBentoCards.length) {
+    const cardRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('bento-revealed');
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.08
+    });
+
+    allBentoCards.forEach(card => {
+      cardRevealObserver.observe(card);
+    });
+
+    // Mark any cards already visible in viewport (e.g. Hero cards upon intro dismissal)
+    const checkViewportCards = () => {
+      allBentoCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          card.classList.add('bento-revealed');
+        }
+      });
+    };
+
+    // Run check initially
+    checkViewportCards();
+
+    // Re-check once intro is dismissed to ensure hero cards trigger cleanly
+    const bodyClassObserver = new MutationObserver(() => {
+      if (document.body.classList.contains('intro-dismissed')) {
+        checkViewportCards();
+        bodyClassObserver.disconnect();
+      }
+    });
+    bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
 
 });
