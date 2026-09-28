@@ -435,12 +435,11 @@ html {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   opacity: 0;
   transform: translateY(38px) scale(0.97);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: opacity 0.2s ease, 
+              transform 0.2s ease,
               border-color var(--transition-speed) ease, 
               background-color var(--transition-speed) ease, 
               box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: var(--bento-delay, 0.04s);
 }
 
 .bento-card:not(.bento-revealed) {
@@ -476,6 +475,12 @@ html {
 .intro-dismissed .bento-fade-in {
   opacity: 1;
   transform: translateY(0) scale(1);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--transition-speed) ease, 
+              background-color var(--transition-speed) ease, 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--bento-delay, 0.04s);
 }
 
 /* Stagger delays across children in 2-column bento grids */
@@ -1851,6 +1856,14 @@ header {
   flex-direction: column;
   height: 100%;
   contain: layout style;
+  transition: opacity 0.2s ease, 
+              transform 0.2s ease,
+              border-color var(--transition-speed) ease, 
+              background-color var(--transition-speed) ease,
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intro-dismissed .project-card.bento-revealed {
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
               transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               border-color var(--transition-speed) ease, 
@@ -1865,9 +1878,10 @@ header {
 }
 
 .project-card.hidden-by-filter {
-  opacity: 0;
-  transform: scale(0.95);
+  opacity: 0 !important;
+  transform: translateY(20px) scale(0.95) !important;
   pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
 }
 
 .project-meta {

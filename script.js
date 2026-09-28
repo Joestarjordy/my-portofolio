@@ -814,20 +814,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (matchesCategory && matchesSearch) {
         card.classList.remove('hidden-by-filter');
         card.style.display = 'flex';
-        requestAnimationFrame(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0) scale(1)';
-        });
+        card.style.opacity = '';
+        card.style.transform = '';
         visibleCount++;
       } else {
         card.classList.add('hidden-by-filter');
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px) scale(0.96)';
         setTimeout(() => {
           if (card.classList.contains('hidden-by-filter')) {
             card.style.display = 'none';
           }
-        }, 300);
+        }, 250);
       }
     });
 
@@ -1138,12 +1134,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 11. BENTO BOX SLIDE POP-UP ENTRANCE ANIMATION (SCROLL REVEAL)
+  // 11. BENTO BOX SLIDE POP-UP ENTRANCE ANIMATION (BIDIRECTIONAL SCROLL REVEAL)
   // ==========================================
   const allBentoCards = document.querySelectorAll('.bento-card');
 
   if (allBentoCards.length) {
-    const cardRevealObserver = new IntersectionObserver((entries) => {
+    // 1. Enter Observer: triggers slide pop-up animation when cards enter from top or bottom
+    const cardEnterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('bento-revealed');
@@ -1151,19 +1148,38 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, {
       root: null,
-      rootMargin: '0px 0px -40px 0px',
+      rootMargin: '-30px 0px -40px 0px',
       threshold: 0.08
     });
 
-    allBentoCards.forEach(card => {
-      cardRevealObserver.observe(card);
+    // 2. Exit Observer: resets cards only when they scroll substantially outside viewport
+    // (160px buffer prevents jitter/flicker while reading nearby)
+    const cardExitObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+          // Never un-reveal Home cards when user is at the top boundary
+          if (entry.target.closest('#home') && window.scrollY < 120) {
+            return;
+          }
+          entry.target.classList.remove('bento-revealed');
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '160px 0px 160px 0px',
+      threshold: 0
     });
 
-    // Mark any cards already visible in viewport (e.g. Hero cards upon intro dismissal)
+    allBentoCards.forEach(card => {
+      cardEnterObserver.observe(card);
+      cardExitObserver.observe(card);
+    });
+
+    // Mark any cards already visible in viewport
     const checkViewportCards = () => {
       allBentoCards.forEach(card => {
         const rect = card.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
+        if (rect.top < window.innerHeight - 30 && rect.bottom > 30) {
           card.classList.add('bento-revealed');
         }
       });
@@ -1180,6 +1196,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // When scrolling back up to top boundary, guarantee Home cards stay revealed
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < 80) {
+        document.querySelectorAll('#home .bento-card').forEach(card => {
+          card.classList.add('bento-revealed');
+        });
+      }
+    }, { passive: true });
   }
 
 });
