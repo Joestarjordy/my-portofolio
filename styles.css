@@ -150,10 +150,6 @@ button, input, textarea {
 
 
 /* --- CONTINUOUS CONNECTED SECTIONS --- */
-html {
-  scroll-padding-top: 85px;
-}
-
 .page-section {
   position: relative;
   display: block;
@@ -2600,9 +2596,6 @@ footer {
   }
 
   /* Page section spacing on mobile */
-  html {
-    scroll-padding-top: 70px;
-  }
   .page-section {
     padding: 75px 0 50px;
     scroll-margin-top: 70px;

@@ -593,14 +593,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuBtn.addEventListener('click', () => toggleMenu());
     menuBackdrop.addEventListener('click', () => toggleMenu(false));
-
-    // Dismiss drawer upon link navigation
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        link.blur();
-        toggleMenu(false);
-      });
-    });
   }
 
   // ==========================================
@@ -651,8 +643,9 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       isProgrammaticScroll = false;
+      setActiveNavLink(targetId);
       updateScrollSpy();
-    }, 850);
+    }, 950);
   }
 
   scrollToSectionFn = scrollToSection;
@@ -692,40 +685,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 200);
   }
 
-  // Robust deterministic ScrollSpy calculation
+  // Robust deterministic ScrollSpy calculation using viewport coordinates
   function updateScrollSpy() {
     if (isProgrammaticScroll) return;
     const scrollY = window.scrollY || window.pageYOffset;
 
-    // Top boundary
+    // Top boundary: near top of page -> Home
     if (scrollY < 80) {
       setActiveNavLink('home');
       debouncedUpdateHash('home');
       return;
     }
 
-    // Bottom boundary (reached end of document)
+    // Bottom boundary: reached bottom of page -> Contact
     if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 80)) {
       setActiveNavLink('contact');
       debouncedUpdateHash('contact');
       return;
     }
 
-    // Determine active section using reading focal point
     const headerHeight = window.innerWidth <= 768 ? 70 : 85;
-    const focalY = scrollY + headerHeight + 60;
+    // Check line: 50px below header where section title and content are read
+    const focalPointY = headerHeight + 50;
 
-    let currentSectionId = 'home';
+    let currentSectionId = null;
+
+    // A section is active if its top is at or above the focal point,
+    // and its bottom is still below the focal point.
     sections.forEach(section => {
-      const top = section.offsetTop;
-      const height = section.offsetHeight;
-      if (focalY >= top && focalY < (top + height)) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= focalPointY && rect.bottom > focalPointY) {
         currentSectionId = section.getAttribute('id');
       }
     });
 
-    setActiveNavLink(currentSectionId);
-    debouncedUpdateHash(currentSectionId);
+    // Fallback: pick section with greatest visible height in viewport
+    if (!currentSectionId) {
+      let maxVisible = -1;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const vTop = Math.max(rect.top, headerHeight);
+        const vBottom = Math.min(rect.bottom, window.innerHeight);
+        const visibleHeight = Math.max(0, vBottom - vTop);
+        if (visibleHeight > maxVisible) {
+          maxVisible = visibleHeight;
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+    }
+
+    if (currentSectionId) {
+      setActiveNavLink(currentSectionId);
+      debouncedUpdateHash(currentSectionId);
+    }
   }
 
   // ScrollSpy via throttled rAF scroll listener
