@@ -11,7 +11,7 @@ Everything lives in four files at the repo root:
 - `index.html` — all markup for every "page"
 - `styles.css` — all styling (~2000 lines, sectioned by `/* --- NAME --- */` comments)
 - `script.js` — all behavior, wrapped in one `DOMContentLoaded` handler, sectioned by numbered `// === N. NAME ===` banners
-- `assets/CV Modern English.pdf` — CV document file
+- `assets/CV_Jordy Cahya Buana.pdf` — CV document file
 
 ## Running
 
