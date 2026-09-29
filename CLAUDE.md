@@ -111,7 +111,7 @@ Two modes, chosen by the `CONTACT_ENDPOINT` constant at the top of the section:
 - **Endpoint set** (Formspree/Getform/Basin/a serverless function): the payload is POSTed as JSON; `response.ok` drives success vs. error state.
 - **Endpoint empty** (current state): pre-fills and redirects the page directly to Gmail web compose with recipient set to `CONTACT_EMAIL`, subject, and formatted sender message body.
 
-The invariant: **never report success for a message that was not delivered.** The form previously faked a 2s delay and always claimed success while sending nothing — do not reintroduce that. Status states are `success` / `error` / `info`, each with its own style and its own translated message key.
+The invariant: **never report success for a message that was not delivered.** The form previously faked a 2s delay and always claimed success while sending nothing — do not reintroduce that. Status states are `success` / `error` / `info`, each with its own style and its own translated message key. Includes a Clear button (`#form-clear-btn`) next to the Execute button that resets all form fields, clears validation error borders, and dismisses any active status banners.
 
 ## Conventions
 

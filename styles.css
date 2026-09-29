@@ -2214,8 +2214,16 @@ textarea.form-input {
   resize: vertical;
 }
 
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}
+
 .form-submit-btn {
-  width: 100%;
+  flex: 1.6;
+  width: auto;
+  min-width: 0;
   justify-content: center;
   font-family: var(--font-display);
   font-size: 1.05rem;
@@ -2239,6 +2247,63 @@ textarea.form-input {
   border-top-color: #fff;
   animation: spin 0.8s linear infinite;
 }
+
+.form-clear-btn {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1.5px solid rgba(0, 245, 212, 0.4);
+  background: rgba(0, 245, 212, 0.05);
+  color: var(--text-main);
+  transition: all 0.3s ease;
+}
+
+.dark-theme .form-clear-btn {
+  border-color: rgba(102, 192, 244, 0.4);
+  background: rgba(102, 192, 244, 0.06);
+}
+
+.form-clear-btn:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 245, 212, 0.12);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
+  transform: translateY(-3px);
+}
+
+.dark-theme .form-clear-btn:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(102, 192, 244, 0.15);
+  box-shadow: 0 0 20px rgba(102, 192, 244, 0.3);
+  transform: translateY(-3px);
+}
+
+.form-clear-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-clear-btn .clear-icon {
+  stroke: currentColor;
+  flex-shrink: 0;
+  transition: transform 0.4s ease;
+}
+
+.form-clear-btn:hover .clear-icon {
+  transform: rotate(-180deg);
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -2644,6 +2709,15 @@ footer {
   .intro-role {
     font-size: 0.8rem;
     letter-spacing: 1px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .form-submit-btn,
+  .form-clear-btn {
+    width: 100%;
   }
 }
 

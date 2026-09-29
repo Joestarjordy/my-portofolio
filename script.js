@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "contact-label-location": "Location",
       "social-title": "You can find me on",
       "btn-submit": "Execute Transmission",
+      "btn-clear": "Clear",
       
       // Placeholders
       "placeholder-name": "Your Name",
@@ -197,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "contact-label-location": "Lokasi",
       "social-title": "Temukan saya di",
       "btn-submit": "Kirim Transmisi",
+      "btn-clear": "Kosongkan",
       
       // Placeholders
       "placeholder-name": "Nama Anda",
@@ -957,6 +959,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const contactForm = document.getElementById('contact-form');
   const submitBtn = contactForm?.querySelector('.form-submit-btn');
+  const clearBtn = contactForm?.querySelector('#form-clear-btn');
   const btnText = submitBtn?.querySelector('.btn-text');
   const loader = submitBtn?.querySelector('.loader');
   const formStatus = document.getElementById('form-status');
@@ -992,6 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setBusy(busy) {
       submitBtn.disabled = busy;
+      if (clearBtn) clearBtn.disabled = busy;
       if (btnText) {
         btnText.textContent = busy
           ? translations[activeLang]["msg-transmitting"]
@@ -999,6 +1003,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (loader) loader.style.display = busy ? 'inline-block' : 'none';
     }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        contactForm.reset();
+        const inputs = contactForm.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+          input.value = '';
+          input.style.borderColor = 'var(--card-border)';
+        });
+        if (formStatus) {
+          clearTimeout(statusTimer);
+          clearTimeout(statusFadeTimer);
+          formStatus.style.display = 'none';
+          formStatus.style.opacity = '1';
+          formStatus.className = 'form-status';
+          formStatus.textContent = '';
+        }
+      });
+    }
+
+    const formInputs = contactForm.querySelectorAll('.form-input');
+    formInputs.forEach(input => {
+      input.addEventListener('input', () => {
+        if (input.style.borderColor && input.style.borderColor !== 'var(--card-border)') {
+          input.style.borderColor = 'var(--card-border)';
+        }
+      });
+    });
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
