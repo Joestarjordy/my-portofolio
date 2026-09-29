@@ -1033,19 +1033,13 @@ document.addEventListener('DOMContentLoaded', () => {
         message: contactForm.querySelector('#message').value.trim()
       };
 
-      // No endpoint configured: redirect / open Gmail web compose with pre-filled details
+      // No endpoint configured: redirect directly to Gmail web compose with pre-filled details
       if (!CONTACT_ENDPOINT) {
         const emailBody = `Hi Jordy,\n\n${payload.message}\n\n---\nSender: ${payload.name}\nEmail: ${payload.email}`;
         const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}&su=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(emailBody)}`;
 
-        const linkLabel = activeLang === 'id' ? '[Buka Gmail]' : '[Open Gmail]';
-        const linkHtml = ` <a href="${gmailUrl}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline; font-weight: 700; margin-left: 6px;">${linkLabel}</a>`;
-        showStatus('info', 'msg-mailto', linkHtml);
-
-        const newTab = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-        if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
-          window.location.href = gmailUrl;
-        }
+        showStatus('info', 'msg-mailto');
+        window.location.href = gmailUrl;
         return;
       }
 
