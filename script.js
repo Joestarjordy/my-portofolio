@@ -579,6 +579,16 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.toggle('active', isOpen);
       menuBackdrop.classList.toggle('active', isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
+
+      // Immediately unfocus and blur all links to avoid sticky mobile touch hover/focus
+      navLinks.querySelectorAll('a').forEach(l => l.blur());
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
+
+      if (isOpen && typeof updateScrollSpy === 'function') {
+        updateScrollSpy();
+      }
     };
 
     menuBtn.addEventListener('click', () => toggleMenu());
@@ -587,6 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dismiss drawer upon link navigation
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
+        link.blur();
         toggleMenu(false);
       });
     });
@@ -616,6 +627,12 @@ document.addEventListener('DOMContentLoaded', () => {
     isProgrammaticScroll = true;
     setActiveNavLink(targetId);
 
+    // Unfocus all nav links so mobile touch doesn't retain focus
+    navLinksItems.forEach(l => l.blur());
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur();
+    }
+
     if (updateHash && window.location.hash !== '#' + targetId) {
       history.pushState(null, '', '#' + targetId);
     }
@@ -634,6 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       isProgrammaticScroll = false;
+      updateScrollSpy();
     }, 850);
   }
 
@@ -649,6 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetEl = document.getElementById(targetId);
       if (targetEl) {
         e.preventDefault();
+        link.blur();
         scrollToSection(targetId, true);
         
         // Close mobile drawer if open
@@ -673,32 +692,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 200);
   }
 
-  // ScrollSpy using IntersectionObserver
-  const observerOptions = {
-    root: null,
-    rootMargin: '-25% 0px -55% 0px',
-    threshold: 0
-  };
-
-  const sectionObserver = new IntersectionObserver((entries) => {
+  // Robust deterministic ScrollSpy calculation
+  function updateScrollSpy() {
     if (isProgrammaticScroll) return;
+    const scrollY = window.scrollY || window.pageYOffset;
 
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        if (id) {
-          setActiveNavLink(id);
-          debouncedUpdateHash(id);
-        }
+    // Top boundary
+    if (scrollY < 80) {
+      setActiveNavLink('home');
+      debouncedUpdateHash('home');
+      return;
+    }
+
+    // Bottom boundary (reached end of document)
+    if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 80)) {
+      setActiveNavLink('contact');
+      debouncedUpdateHash('contact');
+      return;
+    }
+
+    // Determine active section using reading focal point
+    const headerHeight = window.innerWidth <= 768 ? 70 : 85;
+    const focalY = scrollY + headerHeight + 60;
+
+    let currentSectionId = 'home';
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      if (focalY >= top && focalY < (top + height)) {
+        currentSectionId = section.getAttribute('id');
       }
     });
-  }, observerOptions);
 
-  sections.forEach(section => {
-    sectionObserver.observe(section);
-  });
+    setActiveNavLink(currentSectionId);
+    debouncedUpdateHash(currentSectionId);
+  }
 
-  // Handle top and bottom scroll boundaries via throttled rAF
+  // ScrollSpy via throttled rAF scroll listener
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
     if (scrollTicking || isProgrammaticScroll) return;
@@ -706,22 +736,24 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => {
       scrollTicking = false;
       if (isProgrammaticScroll) return;
-
-      const scrollY = window.scrollY || window.pageYOffset;
-      // Top edge boundary
-      if (scrollY < 80) {
-        setActiveNavLink('home');
-        debouncedUpdateHash('home');
-        return;
-      }
-
-      // Bottom edge boundary (using body.offsetHeight to avoid synchronous scrollHeight reflow)
-      if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 60)) {
-        setActiveNavLink('contact');
-        debouncedUpdateHash('contact');
-      }
+      updateScrollSpy();
     });
   }, { passive: true });
+
+  // IntersectionObserver as secondary trigger
+  const sectionObserver = new IntersectionObserver(() => {
+    if (!isProgrammaticScroll) {
+      updateScrollSpy();
+    }
+  }, {
+    root: null,
+    rootMargin: '-20% 0px -40% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(section => {
+    sectionObserver.observe(section);
+  });
 
   // Handle browser back/forward history navigation
   window.addEventListener('popstate', () => {

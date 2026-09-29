@@ -586,15 +586,20 @@ header {
   background: var(--accent-gradient);
   transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.nav-links a:hover,
-.nav-links a.active,
-.nav-links a:is(:target-current) {
+.nav-links a.active {
   color: var(--text-main);
 }
-.nav-links a:hover::after,
-.nav-links a.active::after,
-.nav-links a:is(:target-current)::after {
+.nav-links a.active::after {
   width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:hover {
+    color: var(--text-main);
+  }
+  .nav-links a:hover::after {
+    width: 100%;
+  }
 }
 
 .nav-actions {
@@ -2397,10 +2402,32 @@ footer {
   }
 
   .nav-links a {
-    display: block;
+    display: inline-block;
     padding: 0.6rem 1.5rem;
     font-size: 1.1rem;
     letter-spacing: 2px;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile menu: strictly guarantee ONLY the current active page receives the blue underline */
+  .nav-links a::after {
+    bottom: -2px;
+    left: 0;
+  }
+  .nav-links a:not(.active)::after {
+    width: 0 !important;
+  }
+  .nav-links a.active::after {
+    width: 100% !important;
+  }
+  .nav-links a:hover:not(.active),
+  .nav-links a:focus:not(.active) {
+    color: var(--text-secondary) !important;
+  }
+  .nav-links a:hover:not(.active)::after,
+  .nav-links a:focus:not(.active)::after {
+    width: 0 !important;
   }
   
   .dark-theme .nav-links {
