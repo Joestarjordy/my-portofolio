@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "msg-success": "Transmission complete. Packets safely arrived at Malang gateway. Jordy will respond shortly.",
       "msg-error": "Transmission failed. The packets did not arrive — please email buana779@gmail.com directly.",
       "msg-invalid": "Incomplete packet. Please fill every field with a valid address.",
-      "msg-mailto": "Opening your mail client with this message ready to send.",
+      "msg-mailto": "Transmission packet ready. Opening Gmail in your browser...",
       "footer-copy": "© 2026 Jordy Cahya Buana. All Rights Reserved."
     },
     id: {
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "msg-success": "Transmisi selesai. Paket telah tiba dengan aman di gerbang Malang. Jordy akan segera merespons.",
       "msg-error": "Transmisi gagal. Paket tidak sampai — silakan kirim email langsung ke buana779@gmail.com.",
       "msg-invalid": "Paket tidak lengkap. Mohon isi semua kolom dengan alamat yang valid.",
-      "msg-mailto": "Membuka aplikasi email Anda dengan pesan ini siap dikirim.",
+      "msg-mailto": "Paket transmisi siap. Membuka Gmail di browser Anda...",
       "footer-copy": "© 2026 Jordy Cahya Buana. Hak Cipta Dilindungi."
     }
   };
@@ -965,13 +965,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let statusTimer = null;
     let statusFadeTimer = null;
 
-    function showStatus(kind, messageKey) {
+    function showStatus(kind, messageKey, extraHtml = '') {
       if (!formStatus) return;
       clearTimeout(statusTimer);
       clearTimeout(statusFadeTimer);
 
       formStatus.className = 'form-status ' + kind;
-      formStatus.textContent = translations[activeLang][messageKey];
+      const text = (translations[activeLang] && translations[activeLang][messageKey]) || messageKey;
+      if (extraHtml) {
+        formStatus.innerHTML = text + extraHtml;
+      } else {
+        formStatus.textContent = text;
+      }
       formStatus.style.display = 'block';
       formStatus.style.opacity = '1';
 
@@ -1028,14 +1033,19 @@ document.addEventListener('DOMContentLoaded', () => {
         message: contactForm.querySelector('#message').value.trim()
       };
 
-      // No endpoint configured: hand the message to the visitor's mail client
-      // rather than pretending it was delivered.
+      // No endpoint configured: redirect / open Gmail web compose with pre-filled details
       if (!CONTACT_ENDPOINT) {
-        const body = payload.message + '\n\n--\n' + payload.name + ' <' + payload.email + '>';
-        showStatus('info', 'msg-mailto');
-        window.location.href = 'mailto:' + CONTACT_EMAIL +
-          '?subject=' + encodeURIComponent(payload.subject) +
-          '&body=' + encodeURIComponent(body);
+        const emailBody = `Hi Jordy,\n\n${payload.message}\n\n---\nSender: ${payload.name}\nEmail: ${payload.email}`;
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}&su=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(emailBody)}`;
+
+        const linkLabel = activeLang === 'id' ? '[Buka Gmail]' : '[Open Gmail]';
+        const linkHtml = ` <a href="${gmailUrl}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline; font-weight: 700; margin-left: 6px;">${linkLabel}</a>`;
+        showStatus('info', 'msg-mailto', linkHtml);
+
+        const newTab = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+        if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+          window.location.href = gmailUrl;
+        }
         return;
       }
 
