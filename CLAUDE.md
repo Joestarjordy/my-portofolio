@@ -84,7 +84,7 @@ Layout is a 12-column CSS grid (`.bento-grid`) with `.col-3` … `.col-12` span 
 
 For smooth 60fps/120fps scrolling performance, `.bento-card` and `.project-card` use `contain: layout style;` and crisp high-contrast background tokens (`--card-bg`) without generic `backdrop-filter: blur()`. Bento boxes avoid vertical transform hover lifts (`translateY`), keeping cards physically anchored to eliminate hover jiggling and unnecessary layer recomposition while maintaining sleek border-color and neon glow highlights.
 
-In the About section, the college showcase (`.college-bento-card`, `col-7`) pairs with the academic thesis publication card (`.thesis-bento-card`, `col-5`), which features an authentic Universitas Brawijaya skripsi cover front page backdrop (`assets/thesis_cover.jpg`) under a theme-adaptive gradient scrim (`.thesis-bg-overlay`).
+In the About section, the college showcase (`.college-bento-card`, `col-7`) pairs with the academic thesis publication card (`.thesis-bento-card`, `col-5`), which features an authentic Universitas Brawijaya skripsi cover front page backdrop (`assets/thesis_cover.jpg`) under a theme-adaptive gradient scrim (`.thesis-bg-overlay`). The narrative philosophy card (`.about-bio`, `col-8`) houses the primary bio alongside an action row (`.about-actions`) containing direct links for `My Resume` (`#about-resume-btn`), `GitHub` (`#about-github-btn`), and `LinkedIn` (`#about-linkedin-btn`) styled with responsive micro-interaction hover animations. Direct social links were relocated here from the contact section to streamline the terminal contact card.
 
 ### Dedicated Projects View, Grid, Search & Filtering — `script.js` §6b, §7
 
