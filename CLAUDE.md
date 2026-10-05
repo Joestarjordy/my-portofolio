@@ -86,13 +86,18 @@ For smooth 60fps/120fps scrolling performance, `.bento-card` and `.project-card`
 
 In the About section, the college showcase (`.college-bento-card`, `col-7`) pairs with the academic thesis publication card (`.thesis-bento-card`, `col-5`), which features an authentic Universitas Brawijaya skripsi cover front page backdrop (`assets/thesis_cover.jpg`) under a theme-adaptive gradient scrim (`.thesis-bg-overlay`).
 
-### Projects grid, search & filtering — `script.js` §7
+### Dedicated Projects View, Grid, Search & Filtering — `script.js` §6b, §7
 
-The projects section uses a responsive `.bento-grid.projects-grid` with `.project-card.col-4` displaying all projects simultaneously in a 3-column desktop layout (2 columns on tablet, single column on mobile). Above the grid, `.projects-controls-header` houses category filter pills and a live search input (`#project-search-input`) with a clear button.
+The projects showcase is decoupled from the main page's vertical scrolling flow (`#home` -> `#about` -> `#contact`) and lives in its own dedicated full-page view (`.projects-view`). "Projects" is removed from the primary navbar so the project page is accessible exclusively via the "Explore Projects" CTA on `#home` (`#btn-explore-projects`) or direct deep link `/#projects`.
 
-Each card's accent bar is a `.project-glow-gradient` with a `.glow-1` … `.glow-6` modifier; the six gradients are defined per theme in `styles.css` (both sets are Steam-family — darkened blues and green for light, brighter for dark).
+When active (`body.view-projects-active`), main sections are hidden, the navbar reveals a dedicated `Return to Home` button (`.nav-back-btn`), and the Projects page displays:
+- A dedicated **Projects Hero Hub** (`.projects-hero-card`) with terminal archive tag, headline, description, and live metrics grid (deployed repos, open source, ecosystems).
+- A **Top Breadcrumb & Return Bar** (`.projects-top-nav`) with `Back to Main Portfolio` action.
+- The interactive **Filter & Search Bar Header** (`.projects-controls-header`) housing category pills and expandable live search (`#project-search-input`).
+- The responsive `.bento-grid.projects-grid` with `.project-card.col-4` displaying all 6 projects simultaneously with glow accent bars, tech tags, GitHub repository links, and live preview buttons.
+- A **Bottom Portal CTA** (`.projects-portal-card`) providing fast handoff to either `Let's Talk` (`#contact`) or `Return to Home` (`#home`).
 
-Filtering and live search run through `updateProjectVisibility()`, checking both the selected category (`data-category`) and search term (matching against title, description, category, and tech tags). Non-matching cards receive `.hidden-by-filter` and delayed `display: none` (300ms). When zero cards match, `#projects-no-results` displays an interactive empty state with a "Reset Filters" action.
+Filtering and live search run through `updateProjectVisibility()`, checking both the selected category (`data-category`) and search term. When zero cards match, `#projects-no-results` displays an interactive empty state with a "Reset Filters" action. Returning to home (via any return button, navbar back button, logo, or browser back button) restores the main portfolio scrollview and scrolls smoothly to `#home`.
 
 ### Particle canvas — `script.js` §3
 

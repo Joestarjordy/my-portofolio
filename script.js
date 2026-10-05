@@ -67,7 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp-2-role": "Student",
       "exp-2-date": "Jan 2020 - Dec 2025",
       "exp-2-company": "Universitas Brawijaya",
-      "exp-2-desc": "Completed Informatics Engineering degree, focusing on software design, algorithmic problem solving, and modern Front-End Web development.",
+      "projects-badge": "// SYSTEM ARCHIVE // SELECTED WORKS",
+      "projects-hero-title": "Engineered Systems & Creative Labs",
+      "projects-hero-desc": "An interactive showcase of responsive web applications, native Android architectures, canvas simulations, and benchmark suites built with clean code and modern aesthetics.",
+      "btn-back-home": "Back to Main Portfolio",
+      "projects-metric-1-lbl": "Projects Deployed",
+      "projects-metric-2-lbl": "Open Source",
+      "projects-metric-3-lbl": "Web & Android Stacks",
+      "projects-portal-tag": "// TRANSMIT AN INQUIRY",
+      "projects-cta-title": "Have a project or collaboration in mind?",
+      "projects-cta-desc": "Let's translate your vision into a high-performance digital reality. Reach out via the terminal mailer or my social channels.",
+      "btn-return-home": "Return to Home",
       "projects-board-title": "Projects Board",
       "filter-all": "All Projects",
       "filter-web": "Web Apps & Games",
@@ -165,6 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp-2-date": "Jan 2020 - Des 2025",
       "exp-2-company": "Universitas Brawijaya",
       "exp-2-desc": "Menyelesaikan gelar Teknik Informatika, berfokus pada desain perangkat lunak, pemecahan masalah algoritmik, dan pengembangan Web Front-End modern.",
+      "projects-badge": "// ARSIP SISTEM // KARYA PILIHAN",
+      "projects-hero-title": "Sistem Rekayasa & Laboratorium Kreatif",
+      "projects-hero-desc": "Pameran interaktif aplikasi web responsif, arsitektur Android native, simulasi canvas, dan perangkat benchmark yang dibangun dengan kode bersih dan estetika modern.",
+      "btn-back-home": "Kembali ke Portofolio",
+      "projects-metric-1-lbl": "Proyek Diluncurkan",
+      "projects-metric-2-lbl": "Sumber Terbuka",
+      "projects-metric-3-lbl": "Stack Web & Android",
+      "projects-portal-tag": "// KIRIMKAN PERTANYAAN",
+      "projects-cta-title": "Punya ide proyek atau kolaborasi?",
+      "projects-cta-desc": "Mari wujudkan visi Anda menjadi kenyataan digital berkinerja tinggi. Hubungi melalui terminal mailer atau saluran sosial.",
+      "btn-return-home": "Kembali ke Beranda",
       "projects-board-title": "Papan Proyek",
       "filter-all": "Semua Proyek",
       "filter-web": "Aplikasi Web & Game",
@@ -614,9 +635,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function enterProjectsView(updateHash = true) {
+    document.body.classList.add('view-projects-active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    if (updateHash && window.location.hash !== '#projects') {
+      history.pushState({ view: 'projects' }, '', '#projects');
+    }
+
+    // Trigger bento entrance pop-up animation for project cards
+    const projectCards = document.querySelectorAll('#projects .bento-card, #projects .project-card');
+    if (projectCards.length) {
+      projectCards.forEach(card => card.classList.remove('bento-revealed'));
+      setTimeout(() => {
+        projectCards.forEach(card => card.classList.add('bento-revealed'));
+      }, 150);
+    }
+  }
+
+  function exitProjectsView(targetSection = 'home', updateHash = true) {
+    document.body.classList.remove('view-projects-active');
+    
+    if (targetSection === 'projects' || !targetSection) {
+      targetSection = 'home';
+    }
+
+    scrollToSection(targetSection, updateHash);
+    if (targetSection === 'home') {
+      resetTypewriter();
+    }
+  }
+
   function scrollToSection(targetId, updateHash = true) {
+    if (targetId === 'projects') {
+      enterProjectsView(updateHash);
+      return;
+    }
+
     const targetEl = document.getElementById(targetId);
     if (!targetEl) return;
+
+    if (document.body.classList.contains('view-projects-active')) {
+      document.body.classList.remove('view-projects-active');
+    }
 
     isProgrammaticScroll = true;
     setActiveNavLink(targetId);
@@ -659,22 +720,58 @@ document.addEventListener('DOMContentLoaded', () => {
       const href = link.getAttribute('href');
       if (!href || href === '#') return;
       const targetId = href.substring(1);
+
+      // Close mobile drawer if open
+      if (typeof toggleMenu === 'function') {
+        toggleMenu(false);
+      } else if (menuBtn && navLinks) {
+        menuBtn.classList.remove('active');
+        navLinks.classList.remove('active');
+      }
+
+      // If clicking explore projects or any link to #projects
+      if (targetId === 'projects') {
+        e.preventDefault();
+        link.blur();
+        enterProjectsView(true);
+        return;
+      }
+
+      // If currently inside projects view and clicking another section (home, about, contact)
+      if (document.body.classList.contains('view-projects-active')) {
+        e.preventDefault();
+        link.blur();
+        exitProjectsView(targetId, true);
+        return;
+      }
+
       const targetEl = document.getElementById(targetId);
       if (targetEl) {
         e.preventDefault();
         link.blur();
         scrollToSection(targetId, true);
-        
-        // Close mobile drawer if open
-        if (typeof toggleMenu === 'function') {
-          toggleMenu(false);
-        } else if (menuBtn && navLinks) {
-          menuBtn.classList.remove('active');
-          navLinks.classList.remove('active');
-        }
       }
     });
   });
+
+  // Dedicated return buttons for projects view
+  document.querySelectorAll('.btn-return-home, #btn-back-portfolio, #nav-back-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      exitProjectsView('home', true);
+    });
+  });
+
+  // Logo returns to home if clicked inside projects view
+  const logoLink = document.querySelector('.logo');
+  if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+      if (document.body.classList.contains('view-projects-active')) {
+        e.preventDefault();
+        exitProjectsView('home', true);
+      }
+    });
+  }
 
   // Debounced URL hash updating to eliminate browser IPC hitching during rapid scrolling
   let hashUpdateTimeout = null;
@@ -689,7 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Robust deterministic ScrollSpy calculation using viewport coordinates
   function updateScrollSpy() {
-    if (isProgrammaticScroll) return;
+    if (isProgrammaticScroll || document.body.classList.contains('view-projects-active')) return;
     const scrollY = window.scrollY || window.pageYOffset;
 
     // Top boundary: near top of page -> Home
@@ -772,9 +869,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle browser back/forward history navigation
   window.addEventListener('popstate', () => {
     const targetId = window.location.hash.substring(1) || 'home';
-    const targetEl = document.getElementById(targetId);
-    if (targetEl) {
-      scrollToSection(targetId, false);
+    if (targetId === 'projects') {
+      enterProjectsView(false);
+    } else {
+      if (document.body.classList.contains('view-projects-active')) {
+        exitProjectsView(targetId, false);
+      } else {
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          scrollToSection(targetId, false);
+        }
+      }
     }
   });
 
@@ -783,16 +888,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const isReload = navEntry ? navEntry.type === 'reload' : false;
 
   const requestedSection = window.location.hash.substring(1);
-  const requestedEl = document.getElementById(requestedSection);
-  const isKnownSection = !!requestedEl && requestedEl.classList.contains('page-section');
+  if (requestedSection === 'projects') {
+    initialSection = 'projects';
+    enterProjectsView(false);
+  } else {
+    const requestedEl = document.getElementById(requestedSection);
+    const isKnownSection = !!requestedEl && requestedEl.classList.contains('page-section');
 
-  initialSection = (!isReload && isKnownSection) ? requestedSection : 'home';
+    initialSection = (!isReload && isKnownSection) ? requestedSection : 'home';
 
-  if (requestedSection !== initialSection) {
-    history.replaceState(null, '', '#' + initialSection);
+    if (requestedSection !== initialSection) {
+      history.replaceState(null, '', '#' + initialSection);
+    }
+
+    setActiveNavLink(initialSection);
   }
-
-  setActiveNavLink(initialSection);
 
   // ==========================================
   // 7. PROJECTS GRID & CATEGORY FILTER
@@ -1197,7 +1307,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Trigger the bento fade-in halfway through the overlay exit (0.5s)
       setTimeout(() => {
         document.body.classList.add('intro-dismissed');
-        if (initialSection && initialSection !== 'home' && typeof scrollToSectionFn === 'function') {
+        if (initialSection === 'projects') {
+          enterProjectsView(false);
+        } else if (initialSection && initialSection !== 'home' && typeof scrollToSectionFn === 'function') {
           scrollToSectionFn(initialSection, false);
         }
       }, 500);
@@ -1220,7 +1332,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     // Fallback if no intro element exists
     document.body.classList.add('intro-dismissed');
-    if (initialSection && initialSection !== 'home' && typeof scrollToSectionFn === 'function') {
+    if (initialSection === 'projects') {
+      enterProjectsView(false);
+    } else if (initialSection && initialSection !== 'home' && typeof scrollToSectionFn === 'function') {
       scrollToSectionFn(initialSection, false);
     }
   }

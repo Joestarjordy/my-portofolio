@@ -86,9 +86,12 @@
         <ul class="nav-links">
           <li><a href="#home" class="active" data-translate="nav-home">Home</a></li>
           <li><a href="#about" data-translate="nav-about">About</a></li>
-          <li><a href="#projects" data-translate="nav-projects">Projects</a></li>
           <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
         </ul>
+        <a href="#home" class="nav-back-btn btn-return-home" id="nav-back-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+          <span data-translate="btn-return-home">Return to Home</span>
+        </a>
       </nav>
       
       <div class="nav-actions">
@@ -132,7 +135,7 @@
           <p class="hero-desc" data-translate="hero-desc">I design and build premium web applications, translating complex ideas into elegant, responsive, and high-performance digital experiences.</p>
           <div class="hero-actions">
             <a href="#about" class="btn-secondary" data-translate="btn-about-me">Get to Know Me</a>
-            <a href="#projects" class="btn-secondary" data-translate="btn-explore">Explore Projects</a>
+            <a href="#projects" id="btn-explore-projects" class="btn-secondary" data-translate="btn-explore">Explore Projects</a>
             <a href="#contact" class="btn-secondary" data-translate="btn-get-in-touch">Get In Touch</a>
           </div>
         </div>
@@ -345,10 +348,50 @@
     </div>
   </section>
 
-  <!-- PROJECTS SECTION -->
-  <section id="projects" class="projects page-section">
+  <!-- PROJECTS DEDICATED VIEW -->
+  <section id="projects" class="projects-view">
     <div class="container">
-      <h2 class="section-title" data-translate="projects-board-title">Projects Board</h2>
+      
+      <!-- Dedicated Projects Hero Hub -->
+      <div class="projects-hero-hub">
+        <div class="projects-top-nav">
+          <button type="button" class="btn-back-portfolio btn-return-home" id="btn-back-portfolio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+            <span data-translate="btn-back-home">Back to Main Portfolio</span>
+          </button>
+          
+          <div class="projects-breadcrumb">
+            <a href="#home" class="bc-link btn-return-home" data-translate="nav-home">Home</a>
+            <span class="bc-sep">/</span>
+            <span class="bc-current" data-translate="projects-board-title">Projects Board</span>
+          </div>
+        </div>
+
+        <div class="bento-card projects-hero-card">
+          <div class="hero-tag" data-translate="projects-badge">// SYSTEM ARCHIVE // SELECTED WORKS</div>
+          <h1 class="projects-hero-title">
+            <span class="gradient-text" data-translate="projects-hero-title">Engineered Systems & Creative Labs</span>
+          </h1>
+          <p class="projects-hero-desc" data-translate="projects-hero-desc">
+            An interactive showcase of responsive web applications, native Android architectures, canvas simulations, and benchmark suites built with clean code and modern aesthetics.
+          </p>
+          
+          <div class="projects-metrics-grid">
+            <div class="metric-item">
+              <span class="metric-val">6+</span>
+              <span class="metric-lbl" data-translate="projects-metric-1-lbl">Projects Deployed</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-val">100%</span>
+              <span class="metric-lbl" data-translate="projects-metric-2-lbl">Open Source</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-val">Web & Android</span>
+              <span class="metric-lbl" data-translate="projects-metric-3-lbl">Core Ecosystems</span>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <!-- Filter and Search controls -->
       <div class="projects-controls-header">
@@ -637,6 +680,20 @@
         </div>
 
       </div>
+
+      <!-- Bottom Portal CTA -->
+      <div class="bento-card projects-portal-card">
+        <div class="portal-content">
+          <div class="hero-tag" data-translate="projects-portal-tag">// TRANSMIT AN INQUIRY</div>
+          <h3 data-translate="projects-cta-title">Have a project or collaboration in mind?</h3>
+          <p data-translate="projects-cta-desc">Let's translate your vision into a high-performance digital reality. Reach out via the terminal mailer or my social channels.</p>
+        </div>
+        <div class="portal-actions">
+          <a href="#contact" class="btn-primary portal-contact-btn" data-translate="btn-talk">Let's Talk</a>
+          <button type="button" class="btn-secondary btn-return-home" data-translate="btn-return-home">← Return to Home</button>
+        </div>
+      </div>
+
     </div>
   </section>
 
