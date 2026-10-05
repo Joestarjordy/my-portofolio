@@ -38,44 +38,47 @@
   --transition-speed: 0.35s;
 }
 
-/* --- STEAM-INSPIRED DARK THEME OVERRIDES ---
-   Blue-grey ground rather than black, after Steam's client chrome.
-   Reference points: #171a21 chrome, #1b2838 body, #16202d panels,
-   #2a475e raised panels, #66c0f4 signature blue, #c7d5e0 body text.
-   Note: --accent-purple is a structural name (the second accent), not a
-   literal one — in this theme it carries Steam's link blue. */
+/* --- LUMINOUS CYBER-SAPPHIRE DARK THEME ---
+   Elevated deep navy and cyber-sapphire ground replacing pitch-dark black.
+   Features an expansive multi-point radial blue glow spreading across the
+   entire viewport, frosted deep-blue bento cards, and vivid cyan accents. */
 .dark-theme {
-  --bg-dark: #1b2838;
-  --bg-glow: radial-gradient(circle at 50% 0%, #2a475e 0%, #1b2838 55%, #171a21 100%);
-  --card-bg: rgba(22, 32, 45, 0.88);
-  --card-border: rgba(102, 192, 244, 0.12);
-  --card-border-hover: rgba(102, 192, 244, 0.5);
+  --bg-dark: #15283c;
+  --bg-glow: 
+    radial-gradient(ellipse 120% 85% at 50% 18%, #275582 0%, rgba(35, 73, 110, 0.82) 35%, rgba(23, 49, 74, 0.6) 70%, transparent 100%),
+    radial-gradient(ellipse 80% 60% at 85% 75%, rgba(32, 85, 132, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 15% 65%, rgba(25, 72, 115, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 90% 70% at 50% 90%, rgba(28, 76, 120, 0.4) 0%, transparent 70%),
+    linear-gradient(180deg, #1d3955 0%, #162d44 50%, #122335 100%);
+  --card-bg: rgba(18, 36, 56, 0.86);
+  --card-border: rgba(102, 192, 244, 0.18);
+  --card-border-hover: rgba(102, 192, 244, 0.6);
   
   --text-main: #ffffff;
   --text-secondary: #c7d5e0;
-  --text-muted: #8f98a0;
+  --text-muted: #8faec4;
   
   --accent-cyan: #66c0f4;
   --accent-purple: #4a9eff;
   --accent-gradient: linear-gradient(135deg, #66c0f4 0%, #1a44c2 100%);
   --accent-gradient-hover: linear-gradient(135deg, #1a44c2 0%, #66c0f4 100%);
   
-  --shadow-neon: 0 8px 30px rgba(102, 192, 244, 0.20);
-  --shadow-neon-purple: 0 8px 30px rgba(26, 68, 194, 0.24);
+  --shadow-neon: 0 8px 30px rgba(102, 192, 244, 0.24);
+  --shadow-neon-purple: 0 8px 30px rgba(26, 68, 194, 0.28);
   
-  --card-wash: linear-gradient(135deg, rgba(102, 192, 244, 0.06) 0%, rgba(26, 68, 194, 0.06) 100%);
+  --card-wash: linear-gradient(135deg, rgba(102, 192, 244, 0.08) 0%, rgba(26, 68, 194, 0.08) 100%);
   --scanline-alpha: 0.22;
   
-  --nav-bg: rgba(23, 26, 33, 0.92);
-  --form-bg: rgba(22, 32, 45, 0.75);
+  --nav-bg: rgba(18, 35, 54, 0.92);
+  --form-bg: rgba(17, 33, 52, 0.85);
 }
 
 .dark-theme .vibe-header-overlay {
-  background: rgba(23, 26, 33, 0.90);
+  background: rgba(18, 35, 54, 0.92);
 }
 
 .dark-theme .nav-links {
-  background: rgba(23, 26, 33, 0.98);
+  background: rgba(18, 35, 54, 0.98);
 }
 
 /* --- RESET & GLOBALS --- */
@@ -187,7 +190,7 @@ button, input, textarea {
 }
 
 .dark-theme .intro-overlay {
-  background: radial-gradient(circle at 50% 50%, #2a475e 0%, #171a21 100%);
+  background: radial-gradient(ellipse 110% 85% at 50% 45%, #275582 0%, #1c4063 40%, #142c44 75%, #0f2032 100%);
 }
 
 /* Background Glowing Shape Blobs */
@@ -235,7 +238,7 @@ button, input, textarea {
 
 .dark-theme .blob-1,
 .dark-theme .blob-2 {
-  opacity: 0.30; /* Dialled back: the Steam ground is lighter than black */
+  opacity: 0.42; /* More vibrant and luminous blue/cyan spread across dark mode */
 }
 
 @keyframes randomDrift1 {
@@ -1367,10 +1370,10 @@ header {
 .dark-theme .thesis-bg-overlay {
   background: linear-gradient(
     180deg,
-    rgba(15, 23, 42, 0.45) 0%,
-    rgba(15, 23, 42, 0.15) 25%,
-    rgba(22, 32, 45, 0.82) 60%,
-    rgba(23, 26, 33, 0.98) 100%
+    rgba(18, 36, 56, 0.45) 0%,
+    rgba(18, 36, 56, 0.15) 25%,
+    rgba(18, 36, 56, 0.82) 60%,
+    rgba(16, 32, 50, 0.98) 100%
   );
 }
 
@@ -1401,7 +1404,7 @@ header {
 }
 
 .dark-theme .thesis-badge {
-  background: rgba(15, 23, 42, 0.92);
+  background: rgba(16, 33, 51, 0.92);
   border-color: rgba(102, 192, 244, 0.2);
 }
 
@@ -1419,7 +1422,7 @@ header {
 
 .dark-theme .thesis-year {
   color: #ffffff;
-  background: rgba(15, 23, 42, 0.92);
+  background: rgba(16, 33, 51, 0.92);
   border-color: rgba(102, 192, 244, 0.2);
 }
 
@@ -1446,8 +1449,8 @@ header {
 }
 
 .dark-theme .thesis-card-bottom {
-  background: rgba(22, 32, 45, 0.94);
-  border-color: rgba(102, 192, 244, 0.18);
+  background: rgba(18, 36, 56, 0.94);
+  border-color: rgba(102, 192, 244, 0.22);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
@@ -2500,18 +2503,18 @@ body.view-projects-active .menu-btn {
 
 /* Dark Theme Form Inputs (Fixes invisible text on focus in dark mode) */
 .dark-theme .form-input {
-  background: rgba(27, 40, 56, 0.55);
-  border-color: rgba(102, 192, 244, 0.18);
+  background: rgba(22, 45, 72, 0.55);
+  border-color: rgba(102, 192, 244, 0.22);
   color: #ffffff;
 }
 
 .dark-theme .form-input::placeholder {
-  color: #8f98a0;
+  color: #8faec4;
   opacity: 0.8;
 }
 
 .dark-theme .form-input:focus {
-  background: #16202d;
+  background: #142a42;
   border-color: var(--accent-cyan);
   box-shadow: 0 0 14px rgba(102, 192, 244, 0.28);
   color: #ffffff;
@@ -2530,7 +2533,7 @@ body.view-projects-active .menu-btn {
 .dark-theme .form-input:-webkit-autofill:hover,
 .dark-theme .form-input:-webkit-autofill:focus {
   -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0px 1000px #16202d inset;
+  -webkit-box-shadow: 0 0 0px 1000px #142a42 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -2817,7 +2820,7 @@ footer {
   }
   
   .dark-theme .nav-links {
-    background: rgba(23, 26, 33, 0.98);
+    background: rgba(18, 35, 54, 0.98);
     border-left-color: rgba(102, 192, 244, 0.2);
     box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5);
   }

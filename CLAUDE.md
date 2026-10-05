@@ -61,7 +61,7 @@ The theme is resolved once, by a **blocking inline script in `<head>`** (prevent
 
 **Both palettes are Steam-inspired** — one blue hue family, inverted, so the themes read as one design in two temperatures.
 
-- **Dark** — blue-grey ground, not black: `#171a21` chrome, `#1b2838` body, `#16202d` panels, `#2a475e` raised, `#66c0f4` signature blue, `#c7d5e0` text, `#8f98a0` muted, `#a4d007` green.
+- **Dark (Luminous Cyber-Sapphire)** — deep navy ground (`#15283c`), multi-point ambient radial blue glow spreading across the entire background (`#275582` / `#1d3955` / `#162d44` / `#122335`), frosted deep-blue glass panels (`rgba(18, 36, 56, 0.86)`), `#66c0f4` signature cyan, `#ffffff` text, `#c7d5e0` secondary, `#8faec4` muted ice blue.
 - **Light** — cool blue-grey paper with white panels: `#dfe7ee` ground, `rgba(255,255,255,.86)` panels, `#10263a` ink, `#3c5a73` / `#4a6680` secondary and muted, `#15639e` primary accent, `#1a44c2` second accent. Steam's `#66c0f4` is too light to carry text on a light ground, hence the darkened blues.
 
 Every token in both themes clears WCAG AA 4.5:1 against its own ground (the worst case — panels only improve it), and white text clears it on both ends of the button gradient. Keep it that way when adjusting. Note that `--accent-purple` is a **structural** name (the second accent), not a literal one — it is blue in both themes now.
