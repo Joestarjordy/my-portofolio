@@ -90,7 +90,7 @@ In the About section, the college showcase (`.college-bento-card`, `col-7`) pair
 
 The projects showcase is decoupled from the main page's vertical scrolling flow (`#home` -> `#about` -> `#contact`) and lives in its own dedicated full-page view (`.projects-view`). "Projects" is removed from the primary navbar so the project page is accessible exclusively via the "Explore Projects" CTA on `#home` (`#btn-explore-projects`) or direct deep link `/#projects`.
 
-When active (`body.view-projects-active`), main sections are hidden, the navbar reveals a dedicated `Return to Home` button (`.nav-back-btn`), and the Projects page displays:
+When active (`body.view-projects-active`), main sections are hidden, the navbar reveals a dedicated `My Personal Projects` title indicator (`.nav-projects-title`), and the Projects page displays:
 - A dedicated **Projects Hero Hub** (`.projects-hero-card`) with terminal archive tag, headline, description, and live metrics grid (deployed repos, open source, ecosystems).
 - A **Top Breadcrumb & Return Bar** (`.projects-top-nav`) with `Back to Main Portfolio` action.
 - The interactive **Filter & Search Bar Header** (`.projects-controls-header`) housing category pills and expandable live search (`#project-search-input`).

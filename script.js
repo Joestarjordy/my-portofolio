@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "projects-cta-title": "Have a project or collaboration in mind?",
       "projects-cta-desc": "Let's translate your vision into a high-performance digital reality. Reach out via the terminal mailer or my social channels.",
       "btn-return-home": "Return to Home",
+      "nav-projects-title": "My Personal Projects",
       "projects-board-title": "Projects Board",
       "filter-all": "All Projects",
       "filter-web": "Web Apps & Games",
@@ -186,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "projects-cta-title": "Punya ide proyek atau kolaborasi?",
       "projects-cta-desc": "Mari wujudkan visi Anda menjadi kenyataan digital berkinerja tinggi. Hubungi melalui terminal mailer atau saluran sosial.",
       "btn-return-home": "Kembali ke Beranda",
+      "nav-projects-title": "Proyek Pribadi Saya",
       "projects-board-title": "Papan Proyek",
       "filter-all": "Semua Proyek",
       "filter-web": "Aplikasi Web & Game",
@@ -755,12 +757,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Dedicated return buttons for projects view
-  document.querySelectorAll('.btn-return-home, #btn-back-portfolio, #nav-back-btn').forEach(btn => {
+  document.querySelectorAll('.btn-return-home, #btn-back-portfolio').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       exitProjectsView('home', true);
     });
   });
+
+  // Clicking navbar projects title smoothly scrolls to top
+  const navProjectsTitle = document.getElementById('nav-projects-title');
+  if (navProjectsTitle) {
+    navProjectsTitle.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    navProjectsTitle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
 
   // Logo returns to home if clicked inside projects view
   const logoLink = document.querySelector('.logo');
